@@ -1,29 +1,30 @@
 #include <iostream>
 #include <fstream>
+#include <conio.h>
+#include <stdio.h>
+
 using namespace std;
 
 int main()
 {
-    ofstream file;
-    file.open("BasmalaOutput.txt"); // file name
+    char filename[] = "BasmalaOutput.txt";
 
-    if (!file) { // Check to see if the file failed to be opened
-        cout << "Failed to create file. You may already have a file named BasmalaOutput";
-        return 1;
+    remove(filename);
+
+    ofstream file(filename);
+    float amount;
+
+    cout << "How many Basmala Characters would you like generated? ";
+    cin >> amount;
+
+    for (float x = 1; x <= amount; x++) {
+        file << u8"\uFDFD";
+        cout << x << "\t(" << x / amount * 100 << "%)" <<endl;
     }
+    file.close();
 
-    else {
-        int amount;
+    cout << "\nWrote " << amount << " characters to " << filename << endl;
 
-        cout << "How many Basmala Characters would you like generated? ";
-        cin >> amount;
-
-        for (int x = 1; x <= amount; x++) {
-            file << u8"\uFDFD";
-        }
-        file.close();
-
-        system("BasmalaOutput.txt");
-        return 0;
-    }
+    system(filename);
+    return 0;
 }
